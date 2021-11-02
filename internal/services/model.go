@@ -1,4 +1,4 @@
-package myService
+package services
 
 import (
 	"time"

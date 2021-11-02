@@ -1,7 +1,6 @@
 package main
 
 import (
-	"GolangTraining/internal/http/myHandler"
 	"GolangTraining/internal/http/rest"
 	"GolangTraining/internal/metrics"
 
@@ -13,7 +12,7 @@ import (
 	"strings"
 )
 
-func SetupRouter(handler *myHandler.MyHandler, cfg *MainConfig, p *metrics.Prometheus) *gin.Engine {
+func SetupRouter(handler *rest.Handler, cfg *MainConfig, p *metrics.Prometheus) *gin.Engine {
 	r := gin.Default()
 	r.Use(gin.Recovery())
 	r.Use(CORSMiddleware())

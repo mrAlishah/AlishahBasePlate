@@ -1,4 +1,4 @@
-package myService
+package services
 
 import (
 	"GolangTraining/internal/logger"
@@ -10,12 +10,12 @@ import (
 )
 
 //01- New Service and Add Service methods
-type MyService interface {
+type Service interface {
 	Hello(ctx context.Context, name string) (string, error)
 }
 
 //01-
-type myService struct {
+type service struct {
 	validate   *validator.Validate
 	mysql      MySQLRepository
 	redis      RedisRepository
@@ -25,14 +25,14 @@ type myService struct {
 }
 
 //01- config
-func CreateMyService(
+func CreateService(
 	config *Config,
 	logger *logger.StandardLogger,
 	mysql MySQLRepository,
 	redis RedisRepository,
 	prometheus *metrics.Prometheus,
-	validator *validator.Validate) MyService {
-	return &myService{
+	validator *validator.Validate) Service {
+	return &service{
 		validate:   validator,
 		redis:      redis,
 		mysql:      mysql,
@@ -43,7 +43,7 @@ func CreateMyService(
 }
 
 //01- implimet service method or impliment into other file
-func (s myService) Hello(ctx context.Context, name string) (string, error) {
+func (s service) Hello(ctx context.Context, name string) (string, error) {
 	//fmt.Printf("Hi %s", name)
 	msg := fmt.Sprintf("Hi %s", name)
 	return msg, nil

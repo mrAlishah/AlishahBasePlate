@@ -1,10 +1,10 @@
 package main
 
 import (
-	"GolangTraining/internal/http/myHandler"
+	"GolangTraining/internal/http/rest"
 	"GolangTraining/internal/logger"
 	"GolangTraining/internal/metrics"
-	"GolangTraining/internal/myService"
+	"GolangTraining/internal/services"
 
 	"context"
 	"os"
@@ -17,7 +17,7 @@ type Server struct {
 	sync.WaitGroup
 	Config *MainConfig
 	//01-
-	RESTHandler *myHandler.MyHandler
+	RESTHandler *rest.Handler
 	Prometheus  *metrics.Prometheus
 	Logger      *logger.StandardLogger
 }
@@ -56,9 +56,9 @@ func (s *Server) Initialize(ctx context.Context) error {
 	//handler := rest.CreateHandler(service)
 
 	//01- Create myService
-	service := myService.CreateMyService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
+	service := services.CreateService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
 	//01- Create myHandler
-	handler := myHandler.CreateMyHandler(service)
+	handler := rest.CreateHandler(service)
 
 	s.Prometheus = prometheus
 	s.RESTHandler = handler

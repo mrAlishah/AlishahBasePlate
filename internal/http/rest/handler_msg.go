@@ -1,4 +1,4 @@
-package myHandler
+package rest
 
 import (
 	"net/http"
@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *MyHandler) GetHelloHandler(c *gin.Context) {
-	msg, err := h.MyService.Hello(c, "omid")
+func (h *Handler) GetHelloHandler(c *gin.Context) {
+	msg, err := h.Service.Hello(c, "omid")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return
