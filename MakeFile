@@ -1,0 +1,20 @@
+# for run type make command
+
+# simple command: make helloß
+hello:
+	echo "hello makeFile"
+
+build:
+	go build -o bin cmd/server/main.go cmd/server/config.go cmd/server/server.go cmd/server/router.go cmd/server/middleware.go
+
+run:
+	go run cmd/server/main.go cmd/server/config.go cmd/server/server.go cmd/server/router.go cmd/server/middleware.go
+
+# build cross platform
+buildCross:
+	GOOS=freebsd GOARCH=386 go build -o bin/main-freebsd-386 main.go 
+	GOOS=linux   GOARCH=386 go build -o bin/main-linux-386 main.go
+	GOOS=windows GOARCH=386 go build -o bin/main-windows-386 main.go
+
+# multi command run
+multicmd: hello run	

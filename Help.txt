@@ -1,0 +1,5 @@
+1- Download All Package
+Go get All
+
+2-Run by make file
+make run
