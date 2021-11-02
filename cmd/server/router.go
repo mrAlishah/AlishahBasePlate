@@ -1,17 +1,19 @@
 package main
 
 import (
+	"GolangTraining/internal/http/myHandler"
 	"GolangTraining/internal/http/rest"
 	"GolangTraining/internal/metrics"
 
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 
 	"net/http"
 	"strings"
 )
 
-func SetupRouter(handler *rest.Handler, cfg *MainConfig, p *metrics.Prometheus) *gin.Engine {
+func SetupRouter(handler *myHandler.MyHandler, cfg *MainConfig, p *metrics.Prometheus) *gin.Engine {
 	r := gin.Default()
 	r.Use(gin.Recovery())
 	r.Use(CORSMiddleware())
@@ -19,8 +21,6 @@ func SetupRouter(handler *rest.Handler, cfg *MainConfig, p *metrics.Prometheus) 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, rest.NotFound)
 	})
-
-	r.GET("/health", handler.Health)
 
 	v1 := r.Group("/v1")
 	if cfg.Server.AuthEnabled {
@@ -30,9 +30,8 @@ func SetupRouter(handler *rest.Handler, cfg *MainConfig, p *metrics.Prometheus) 
 	}
 
 	{
-		v1.GET("/browse", handler.Health)
-		v1.GET("/sigin", handler.SignIn)
-		//v1.GET("/msg", handler.GetMessages)
+
+		v1.GET("/hello", handler.GetHelloHandler)
 	}
 
 	p.MetricsPath = fmt.Sprintf("/%s", "metrics")

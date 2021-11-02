@@ -2,30 +2,32 @@ package main
 
 import (
 	"GolangTraining/internal/logger"
-	"GolangTraining/internal/subscription"
+	"GolangTraining/internal/myService"
 	"GolangTraining/platform/mysql"
 	"GolangTraining/platform/redis"
+	"os"
+
 	"github.com/kelseyhightower/envconfig"
 	"gopkg.in/yaml.v2"
-	"os"
 )
 
 type ServerConfig struct {
-	Enabled        bool             `yaml:"ENABLED"`
-	User           string           `yaml:"USER"`
-	Pass           string           `yaml:"PASS"`
-	AuthEnabled    bool             `yaml:"AUTH_ENABLED"`
-	IngestNode     bool             `yaml:"INGEST_NODE"`
-	TestThirdParty bool             `yaml:"TEST_THIRD_PARTY"`
-	Port          int32 `yaml:"PORT"`
+	Enabled        bool   `yaml:"ENABLED"`
+	User           string `yaml:"USER"`
+	Pass           string `yaml:"PASS"`
+	AuthEnabled    bool   `yaml:"AUTH_ENABLED"`
+	IngestNode     bool   `yaml:"INGEST_NODE"`
+	TestThirdParty bool   `yaml:"TEST_THIRD_PARTY"`
+	Port           int32  `yaml:"PORT"`
 }
 
 type MainConfig struct {
-	Logger  logger.Config       `yaml:"LOGGER"`
-	Service subscription.Config `yaml:"SERVICE"`
-	MySQL   mysql.Config        `yaml:"MYSQL"`
-	Redis   redis.Config        `yaml:"REDIS"`
-	Server  ServerConfig        `yaml:"SERVER"`
+	Logger logger.Config `yaml:"LOGGER"`
+	//01-
+	Service myService.Config `yaml:"SERVICE"`
+	MySQL   mysql.Config     `yaml:"MYSQL"`
+	Redis   redis.Config     `yaml:"REDIS"`
+	Server  ServerConfig     `yaml:"SERVER"`
 }
 
 // LoadConfig loads configs form provided yaml file or overrides it with env variables

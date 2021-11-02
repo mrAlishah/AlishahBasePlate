@@ -1,20 +1,23 @@
 package main
 
 import (
-	"GolangTraining/internal/http/rest"
+	"GolangTraining/internal/http/myHandler"
 	"GolangTraining/internal/logger"
 	"GolangTraining/internal/metrics"
-	"GolangTraining/internal/subscription"
+	"GolangTraining/internal/myService"
+
 	"context"
-	"github.com/go-playground/validator/v10"
 	"os"
 	"sync"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type Server struct {
 	sync.WaitGroup
-	Config      *MainConfig
-	RESTHandler *rest.Handler
+	Config *MainConfig
+	//01-
+	RESTHandler *myHandler.MyHandler
 	Prometheus  *metrics.Prometheus
 	Logger      *logger.StandardLogger
 }
@@ -49,9 +52,13 @@ func (s *Server) Initialize(ctx context.Context) error {
 	//	return err
 	//}
 
-	service := subscription.CreateService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
+	//service := subscription.CreateService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
+	//handler := rest.CreateHandler(service)
 
-	handler := rest.CreateHandler(service)
+	//01- Create myService
+	service := myService.CreateMyService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
+	//01- Create myHandler
+	handler := myHandler.CreateMyHandler(service)
 
 	s.Prometheus = prometheus
 	s.RESTHandler = handler
