@@ -12,6 +12,8 @@ import (
 //01- New Service and Add Service methods
 type Service interface {
 	Hello(ctx context.Context, name string) (string, error)
+
+	Create(ctx context.Context, video Video) (Video, error)
 }
 
 //01-

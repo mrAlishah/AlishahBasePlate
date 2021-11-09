@@ -16,3 +16,10 @@ type Request struct {
 	Email string `form:"email" binding:"required"`
 	Pass  string `form:"pass" binding:"required"`
 }
+
+type Video struct {
+	ID    uint64 `json:"id" bson:"-"`
+	Title string `json:"title" bson:"title"`
+	Desc  string `json:"Desc" bson:"Desc"`
+	Url   string `json:"url" bson:"Desc" binding:"required"`
+}
