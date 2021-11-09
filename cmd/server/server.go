@@ -5,8 +5,11 @@ import (
 	"GolangTraining/internal/logger"
 	"GolangTraining/internal/metrics"
 	"GolangTraining/internal/services"
-	"GolangTraining/internal/storage/mysql"
-	msql "GolangTraining/platform/mysql"
+
+	//"GolangTraining/internal/storage/mysql"
+	"GolangTraining/internal/storage/postgres"
+	//msql "GolangTraining/platform/mysql"
+	pg "GolangTraining/platform/postgres"
 
 	"context"
 	"os"
@@ -46,25 +49,38 @@ func (s *Server) Initialize(ctx context.Context) error {
 	//}
 
 	//01 - Create mySQL Connection
-	mysqlConn, err := msql.NewConnection(ctx, &s.Config.MySQL)
+	//mysqlConn, err := msql.NewConnection(ctx, &s.Config.MySQL)
+	//if err != nil {
+	//	return err
+	//}
+	////01 - Create Repository
+	//mysqlRep, err := mysql.CreateRepository(mysqlConn)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//err = mysqlRep.HealthCheck()
+	//if err != nil {
+	//	return err
+	//}
+
+	//02
+	pgConn := pg.CreateConnection(s.Config.Postgres, "media.com")
+	gorm, err := pgConn.OpenGORM()
 	if err != nil {
 		return err
 	}
-	//01 - Create Repository
-	mysqlRep, err := mysql.CreateRepository(mysqlConn)
+	pgRep, err := postgres.CreateRepository(gorm)
 	if err != nil {
 		return err
 	}
 
-	err = mysqlRep.HealthCheck()
-	if err != nil {
-		return err
-	}
 	//service := subscription.CreateService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
 	//handler := rest.CreateHandler(service)
 
 	//01- Create myService
-	service := services.CreateService(&s.Config.Service, s.Logger, mysqlRep, nil, prometheus, v)
+	//02-
+	service := services.CreateService(&s.Config.Service, s.Logger, nil, pgRep, nil, prometheus, v)
 	//01- Create myHandler
 	handler := rest.CreateHandler(service)
 

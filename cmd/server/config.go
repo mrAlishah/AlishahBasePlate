@@ -5,6 +5,7 @@ import (
 	"GolangTraining/internal/services"
 
 	"GolangTraining/platform/mysql"
+	"GolangTraining/platform/postgres" //02
 	"GolangTraining/platform/redis"
 	"os"
 
@@ -25,10 +26,11 @@ type ServerConfig struct {
 type MainConfig struct {
 	Logger logger.Config `yaml:"LOGGER"`
 	//01-
-	Service services.Config `yaml:"SERVICE"`
-	MySQL   mysql.Config    `yaml:"MYSQL"`
-	Redis   redis.Config    `yaml:"REDIS"`
-	Server  ServerConfig    `yaml:"SERVER"`
+	Service  services.Config `yaml:"SERVICE"`
+	MySQL    mysql.Config    `yaml:"MYSQL"`
+	Postgres postgres.Config `yaml:"POSTGRES"` //02
+	Redis    redis.Config    `yaml:"REDIS"`
+	Server   ServerConfig    `yaml:"SERVER"`
 }
 
 // LoadConfig loads configs form provided yaml file or overrides it with env variables

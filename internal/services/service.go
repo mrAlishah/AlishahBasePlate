@@ -20,6 +20,7 @@ type Service interface {
 type service struct {
 	validate   *validator.Validate
 	mysql      MySQLRepository
+	postgres   PostgresRepository //02-
 	redis      RedisRepository
 	logger     *logger.StandardLogger
 	prometheus *metrics.Prometheus
@@ -31,6 +32,7 @@ func CreateService(
 	config *Config,
 	logger *logger.StandardLogger,
 	mysql MySQLRepository,
+	postgres PostgresRepository, //02-
 	redis RedisRepository,
 	prometheus *metrics.Prometheus,
 	validator *validator.Validate) Service {
@@ -38,6 +40,7 @@ func CreateService(
 		validate:   validator,
 		redis:      redis,
 		mysql:      mysql,
+		postgres:   postgres,
 		logger:     logger,
 		prometheus: prometheus,
 		config:     config,

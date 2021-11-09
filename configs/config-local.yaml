@@ -24,3 +24,11 @@ MYSQL:
     {
       PRODUCTS: "products",
     }
+POSTGRES:
+  HOST: localhost
+  PORT: 5432
+  NAME: postgres
+  USER: postgres
+  PASSWORD: alish
+  SSLMODE: disable
+  DEBUG: true

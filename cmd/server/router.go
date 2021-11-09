@@ -31,6 +31,7 @@ func SetupRouter(handler *rest.Handler, cfg *MainConfig, p *metrics.Prometheus) 
 	{
 
 		v1.GET("/hello", handler.GetHelloHandler)
+		v1.POST("/createvideo", handler.CreateVideo)
 	}
 
 	p.MetricsPath = fmt.Sprintf("/%s", "metrics")
