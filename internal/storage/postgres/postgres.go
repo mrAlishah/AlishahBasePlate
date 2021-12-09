@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"GolangTraining/internal/services"
+	"AlishahBasePlate/internal/services"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
@@ -32,7 +32,7 @@ func (r *Repository) CreateVideo(video services.Video) (services.Video, error) {
 	vdo := services.Video{
 		Title: video.Title,
 		Desc:  video.Desc,
-		Url:   video.Url,
+		Path:  video.Path,
 	}
 	err := r.database.Create(&vdo).Error
 	if err != nil {

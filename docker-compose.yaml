@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:12.5-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test
+  redis-test:
+    container_name: "redis-test"
+    image: redis:latest
+    command: redis-server --requirepass test
+    ports:
+      - "6378:6379"
+  service:
+    build: .
+#    networks:
+#      - service
+    ports:
+      - "8090:8080"

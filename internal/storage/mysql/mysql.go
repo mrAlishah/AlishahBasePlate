@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"GolangTraining/platform/mysql"
+	"AlishahBasePlate/platform/mysql"
 	"context"
 )
 

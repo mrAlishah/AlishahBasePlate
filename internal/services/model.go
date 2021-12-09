@@ -21,5 +21,5 @@ type Video struct {
 	ID    uint64 `json:"id" bson:"-" gorm:"primaryKey,autoIncrement"`
 	Title string `json:"title" bson:"title" gorm:"type:varchar(100)"`
 	Desc  string `json:"desc" bson:"desc" gorm:"type:varchar(100)"`
-	Url   string `json:"url" bson:"url" gorm:"type:varchar(100)"`
+	Path  string `json:"path" bson:"path" gorm:"type:varchar(100)"`
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GolangTraining/internal/logger"
+	"AlishahBasePlate/internal/logger"
 	"context"
 	"flag"
 	"fmt"

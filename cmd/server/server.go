@@ -6,11 +6,6 @@ import (
 	"GolangTraining/internal/metrics"
 	"GolangTraining/internal/services"
 
-	//"GolangTraining/internal/storage/mysql"
-	"GolangTraining/internal/storage/postgres"
-	//msql "GolangTraining/platform/mysql"
-	pg "GolangTraining/platform/postgres"
-
 	"context"
 	"os"
 	"sync"
@@ -65,22 +60,22 @@ func (s *Server) Initialize(ctx context.Context) error {
 	//}
 
 	//02
-	pgConn := pg.CreateConnection(s.Config.Postgres, "media.com")
-	gorm, err := pgConn.OpenGORM()
-	if err != nil {
-		return err
-	}
-	pgRep, err := postgres.CreateRepository(gorm)
-	if err != nil {
-		return err
-	}
+	//pgConn := pg.CreateConnection(s.Config.Postgres, "media.com")
+	//gorm, err := pgConn.OpenGORM()
+	//if err != nil {
+	//	return err
+	//}
+	//pgRep, err := postgres.CreateRepository(gorm)
+	//if err != nil {
+	//	return err
+	//}
 
 	//service := subscription.CreateService(&s.Config.Service, s.Logger, nil, nil, prometheus, v)
 	//handler := rest.CreateHandler(service)
 
 	//01- Create myService
 	//02-
-	service := services.CreateService(&s.Config.Service, s.Logger, nil, pgRep, nil, prometheus, v)
+	service := services.CreateService(&s.Config.Service, s.Logger, nil, nil, nil, prometheus, v)
 	//01- Create myHandler
 	handler := rest.CreateHandler(service)
 

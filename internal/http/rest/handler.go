@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"GolangTraining/internal/services"
+	"AlishahBasePlate/internal/services"
 	"context"
 	"fmt"
 	"net/http"
